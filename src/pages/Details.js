@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { Rating } from "../components/Rating"
 
 export function Details ( props ) {
-    const[ movieData, setmovieData ] = useState()
+    const[ movieData, setmovieData ] = useState(null)
     const[ratings, setRatings] = useState([])
 
     let { movieId } = useParams();
