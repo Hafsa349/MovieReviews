@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import './App.css';
 import { Header } from './components/Header'
 import { Footer } from './components/Footer'
+import { Profile } from "./pages/Profile";
 
 import { Routes, Route } from 'react-router-dom';
 
@@ -38,7 +39,9 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
-  signOut
+  signOut,
+  updatePassword,
+  updateEmail,
 }
   from "firebase/auth"
 import { Movies } from './pages/Movies';
@@ -82,6 +85,23 @@ const signoutuser = () => {
 
 }
 
+const updateUserEmail = (user, email) => {
+  return new Promise((resolve, reject) => {
+    updateEmail(user, email)
+      .then((r) => {
+        resolve(true);
+      })
+      .catch((err) => reject(err));
+  });
+};
+const updateUserPassword = (user, pwd) => {
+  return new Promise((resolve, reject) => {
+    updatePassword(user, pwd)
+      .then(() => resolve(true))
+      .catch((err) => reject(err));
+  });
+};
+
 const RightNavData = [
   { name: "Cinema", path: "/cinema", icon: "fa-solid fa-map-location-dot", public: true },
   { name: "Cart", path: "/cart", icon: "fa-solid fa-cart-shopping", public: true },
@@ -97,6 +117,7 @@ const LeftNavData = [
 const NavDataAuth = [
   { name: "Cinema", path: "/cinema", icon: "fa-solid fa-map-location-dot", public: true },
   { name: "Cart", path: "/cart", icon: "fa-solid fa-cart-shopping", public: true },
+  { name: "Profile", path: "/profile", icon: "fa-solid fa-user", public: true },
   { name: "Sign Out", path: "/signout", icon: "fa-solid fa-user", public: true }
 ]
 
@@ -198,6 +219,16 @@ function App() {
         <Route path="/signup" element={<Signup handler={signup} />} />
         <Route path="/signout" element={<Signout handler={signoutuser} auth={auth} />} />
         <Route path="/signin" element={<Signin handler={signin} />} />
+        <Route
+          path="/profile"
+          element={
+            <Profile
+              auth={auth}
+              updateEmail={updateUserEmail}
+              updatePassword={updateUserPassword}
+            />
+          }
+        />
         <Route path="/movie/:movieId" element={<Details getter={getDocument} />} />
         <Route path="/experiences" element={<Experiences />} />
         <Route path="/deals" element={<Deals />} />
