@@ -1,10 +1,16 @@
 import { useParams } from "react-router-dom"
 import { useState, useEffect } from 'react'
 import { Rating } from "../components/Rating"
+import { useRecoilValue } from "recoil";
+import { favoritesAtom } from "../states/movies";
 
 export function Details ( props ) {
-    const[ movieData, setmovieData ] = useState(null)
+    const[ movieData, setmovieData ] = useState()
     const[ratings, setRatings] = useState([])
+    const [updating, setUpdating] = useState(false);
+    const [isFav, setIsFav] = useState(false);
+    const favorites = useRecoilValue(favoritesAtom);
+
 
     let { movieId } = useParams();
 
@@ -16,7 +22,36 @@ export function Details ( props ) {
                 setRatings(list);
             });
         }
-      });
+      },[movieId]);
+
+    
+      useEffect(() => {
+        if (!props?.auth) return;
+        if (favorites.length === 0) {
+          setIsFav(false);
+        } else {
+          const idx = favorites.findIndex((f) => f.movieId === movieId);
+          if (idx > -1) {
+            setIsFav(true);
+          } else {
+            setIsFav(false);
+          }
+        }
+      }, [movieId, props?.auth, favorites]);
+    
+      const handleFavorite = () => {
+        if (updating) return;
+        // check if movie is already in favorite
+    
+        setUpdating(true);
+        props
+          .onFavorite(props.auth, movieId)
+          .then(() => {})
+          .catch((err) => {})
+          .finally(() => {
+            setUpdating(false);
+          });
+      };
 
     return(
         <div className="container my-4">
@@ -26,7 +61,10 @@ export function Details ( props ) {
                 <img className="movie-image" src={movieData.ImageUrl} alt={movieData.title} width="420px"/> 
                 <br/>
                 <br/>
-                <button className="btn btn-info btn-movie-detail-action">Add to Favouries</button>
+                {props?.auth && !isFav ? (
+                <button className="btn btn-info btn-movie-detail-action" onClick={() => handleFavorite()}>
+                {updating ? "Updating" : "Add to Favorites"}</button>
+                ) : null}
                 <a href="#addreview">
                     <button className="btn btn-info btn-movie-detail-action">Review this movie</button>
                 </a>
