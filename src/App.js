@@ -15,10 +15,9 @@ import { Signin } from './pages/Signin'
 import { Details } from './pages/Details'
 
 //updates DW
-import { Experiences } from './pages/Experiences'
+// import { Experiences } from './pages/Experiences'
 import { Deals } from './pages/Deals'
-import { Cinema } from './pages/Cinema'
-import { Cart } from './pages/Cart'
+
 
 
 
@@ -107,20 +106,20 @@ const updateUserPassword = (user, pwd) => {
 };
 
 const RightNavData = [
-  { name: "Cinema", path: "/cinema", icon: "fa-solid fa-map-location-dot", public: true },
-  { name: "Cart", path: "/cart", icon: "fa-solid fa-cart-shopping", public: true },
+  // { name: "Cinema", path: "/cinema", icon: "fa-solid fa-map-location-dot", public: true },
+  // { name: "Cart", path: "/cart", icon: "fa-solid fa-cart-shopping", public: true },
   { name: "Sign In", path: "/signin", icon: "fa-solid fa-user", public: true }
 ]
 
 const LeftNavData = [
   { name: "Movies", path: "/Movies", public: true },
-  { name: "Experiences", path: "/experiences", public: true },
+  // { name: "Experiences", path: "/experiences", public: true },
   { name: "Deals", path: "/deals", public: true }
 ]
 
 const NavDataAuth = [
-  { name: "Cinema", path: "/cinema", icon: "fa-solid fa-map-location-dot", public: true },
-  { name: "Cart", path: "/cart", icon: "fa-solid fa-cart-shopping", public: true },
+  // { name: "Cinema", path: "/cinema", icon: "fa-solid fa-map-location-dot", public: true },
+  // { name: "Cart", path: "/cart", icon: "fa-solid fa-cart-shopping", public: true },
   { name: "Profile", path: "/profile", icon: "fa-solid fa-user", public: true },
   { name: "Sign Out", path: "/signout", icon: "fa-solid fa-user", public: true }
 ]
@@ -299,10 +298,10 @@ function App() {
           path="/movie/:movieId"
           element={<Details getter={getDocument} onFavorite={handleFavorite} auth={auth} />}
         />
-        <Route path="/experiences" element={<Experiences />} />
+        {/* <Route path="/experiences" element={<Experiences />} /> */}
         <Route path="/deals" element={<Deals />} />
-        <Route path="/cinema" element={<Cinema />} />
-        <Route path="/cart" element={<Cart />} />
+        {/* <Route path="/cinema" element={<Cinema />} />
+        <Route path="/cart" element={<Cart />} /> */}
       </Routes>
       <Footer year="2022" />
     </div>
