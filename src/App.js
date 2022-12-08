@@ -42,6 +42,8 @@ import {
 }
   from "firebase/auth"
 import { Movies } from './pages/Movies';
+import { useRecoilState, useSetRecoilState } from 'recoil'
+import { moviesAtom, genresAtom, filteredAtom } from './states/movies'
 
 // initialise Firebase
 const FBapp = initializeApp(FirebaseConfig)
@@ -102,14 +104,16 @@ function App() {
   const [auth, setAuth] = useState()
   const [rightNav, setRightNav] = useState(RightNavData)
   const [leftNav, setLeftNav] = useState(LeftNavData)
-  const [data, setData] = useState([])
-  const [filterData, setFilterData] = useState([])
+  // const [data, setData] = useState([])
+  // const [filterData, setFilterData] = useState([])
+  
+  const setMovies = useSetRecoilState(moviesAtom)
+  const setFiltered = useSetRecoilState(filteredAtom)
+  const setGenres = useSetRecoilState(genresAtom)
 
   useEffect(() => {
-    if (data.length == 0) {
-      getDataCollection('movies')
-    }
-  })
+      getDataCollection('movies');
+    },[]);
 
   // an observer to determine user's authentication status
   onAuthStateChanged(FBauth, (user) => {
@@ -137,9 +141,9 @@ function App() {
       let item = doc.data()
       item.id = doc.id
       dbItems.push(item)
-    })
-    setData(dbItems)
-
+    });
+    setMovies(dbItems)
+    setFiltered(dbItems)
 
     const filterItems = []
     collectionData.forEach((doc) => {
@@ -155,7 +159,7 @@ function App() {
       }
     })
 
-    setFilterData(filterItems);
+    setGenres(filterItems);
     // return dbItems
   }
 
@@ -188,8 +192,8 @@ function App() {
     <div className="App">
       <Header title="BRAND" rightnav={rightNav} leftnav={leftNav} />
       <Routes>
-        <Route path="/" element={<Home listData={data} />} />
-        <Route path="/movies" element={<Movies listData={data} filterData={filterData} />} />
+        <Route path="/" element={<Home/>} />
+        <Route path="/movies" element={<Movies/>} />
 
         <Route path="/signup" element={<Signup handler={signup} />} />
         <Route path="/signout" element={<Signout handler={signoutuser} auth={auth} />} />
