@@ -15,11 +15,6 @@ import { Signin } from './pages/Signin'
 import { Details } from './pages/Details'
 
 //updates DW
-// import { Experiences } from './pages/Experiences'
-import { Deals } from './pages/Deals'
-
-
-
 
 // import firebase
 import { initializeApp } from "firebase/app"
@@ -114,7 +109,6 @@ const RightNavData = [
 const LeftNavData = [
   { name: "Movies", path: "/Movies", public: true },
   // { name: "Experiences", path: "/experiences", public: true },
-  { name: "Deals", path: "/deals", public: true }
 ]
 
 const NavDataAuth = [
@@ -279,7 +273,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/movies" element={<Movies/>} />
-
         <Route path="/signup" element={<Signup handler={signup} />} />
         <Route path="/signout" element={<Signout handler={signoutuser} auth={auth} />} />
         <Route path="/signin" element={<Signin handler={signin} />} />
@@ -298,10 +291,6 @@ function App() {
           path="/movie/:movieId"
           element={<Details getter={getDocument} onFavorite={handleFavorite} auth={auth} />}
         />
-        {/* <Route path="/experiences" element={<Experiences />} /> */}
-        <Route path="/deals" element={<Deals />} />
-        {/* <Route path="/cinema" element={<Cinema />} />
-        <Route path="/cart" element={<Cart />} /> */}
       </Routes>
       <Footer year="2022" />
     </div>

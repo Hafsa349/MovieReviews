@@ -25,12 +25,6 @@ export function Footer(props) {
                         </div>
                         <div className="col-md-2">
                             <h6 className="text-uppercase font-weight-bold">
-                                <a href="/Deals" className="text-warning">Deals</a>
-                            </h6>
-                        </div>
-
-                        <div className="col-md-2">
-                            <h6 className="text-uppercase font-weight-bold">
                                 <a href="#!" className="text-warning">About us</a>
                             </h6>
                         </div>
@@ -48,9 +42,6 @@ export function Footer(props) {
             <div className="text-center p-3">
             &copy; {props.year}; Copyright: <a class="text-white" href="/">MovieReviews</a>
             </div>
-
-
-
 
         </footer>
     )

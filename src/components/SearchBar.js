@@ -7,8 +7,10 @@ export function SearchBar() {
   const [key, setKey] = useState("");
   const movies = useRecoilValue(moviesAtom);
   const setFiltered = useSetRecoilState(filteredAtom);
-  const handleSearch = () => {
+  const handleSearch = (key) => {
     if (movies.length === 0) return;
+    setKey(key);
+    console.log(key)
     if (key === "") {
       setFiltered(movies);
     } else {
@@ -24,10 +26,10 @@ export function SearchBar() {
              placeholder="search"
              aria-label="Search"
              value ={key}
-             onChange={(e) => setKey(e.target.value) }
+             onChange={(e) => handleSearch(e.target.value) }
              />
             <button className="btn btn-outline-warning" type="button" 
-            onClick={() => handleSearch()}>Search</button>
+                onClick={() => handleSearch(key)}>Search</button>
             </div>
             );
         
