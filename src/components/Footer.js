@@ -37,10 +37,10 @@ export function Footer(props) {
                 </section>
                 
             </div>
-            <hr class="my-5" />
+            <hr className="my-5" />
 
             <div className="text-center p-3">
-            &copy; {props.year}; Copyright: <a class="text-white" href="/">MovieReviews</a>
+            &copy; {props.year}; Copyright: <a className="text-white" href="/">MovieReviews</a>
             </div>
 
         </footer>
